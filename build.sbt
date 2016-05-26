@@ -1,12 +1,12 @@
 import ReleaseTransformations._
 
-name := """cloudsearch-query-validator"""
+name := """reddit-plain-query-validator"""
 
 scalaVersion := "2.11.7"
 
-packageSummary := "CloudSearch Structured Query Validator"
+packageSummary := "Reddit Plain Query Validator"
 
-packageDescription := "CloudSearch Structured Query Validator using FastParse"
+packageDescription := "Reddit Plain Query Validator using FastParse"
 
 maintainer := "Jasper Timmer <jjwtimmer@gmail.com>"
 
@@ -30,7 +30,7 @@ releasePublishArtifactsAction := PgpKeys.publishSigned.value
 pomIncludeRepository := { _ => false }
 
 pomExtra :=
-  <url>https://github.com/jjwtimmer/cloudsearch-query-validator</url>
+  <url>https://github.com/jjwtimmer/reddit-plain-query-validator</url>
     <licenses>
       <license>
         <name>BSD-style</name>
@@ -39,8 +39,8 @@ pomExtra :=
       </license>
     </licenses>
     <scm>
-      <url>git@github.com:jjwtimmer/cloudsearch-query-validator.git</url>
-      <connection>scm:git:git@github.com:jjwtimmer/cloudsearch-query-validator.git</connection>
+      <url>git@github.com:jjwtimmer/reddit-plain-query-validator.git</url>
+      <connection>scm:git:git@github.com:jjwtimmer/reddit-plain-query-validator.git</connection>
     </scm>
     <developers>
       <developer>

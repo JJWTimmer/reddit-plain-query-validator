@@ -1,11 +1,11 @@
-package com.github.jjwtimmer.cloudsearch.validation
+package com.github.jjwtimmer.reddit.validation
 
 import fastparse.WhitespaceApi
 import org.slf4j.LoggerFactory
 
 import scala.language.postfixOps
 
-class CloudSearchQueryParser {
+class RedditPlainQueryParser {
   val White = WhitespaceApi.Wrapper {
     import fastparse.all._
     NoTrace(CharIn(Seq(' ', '\t', '\n', '\r', '\f')).rep)
@@ -51,7 +51,7 @@ class CloudSearchQueryParser {
   private val distanceOpt = P("distance=" ~ digit++)
   private val fieldOpt = P("field=" ~ name)
 
-  private val field = P((name ~ ":" ~ (dateTimeRange | string | value)) | ("(" ~ "field" ~ name ~ (dateTimeRange |string | value) ~ ")"))
+  private val field = P((name ~ ":" ~ (dateTimeRange | string | value)) | ("(" ~ "field" ~ name ~ (dateTimeRange | string | value) ~ ")"))
   private val andOp = P("(" ~ "and" ~ boostOpt.? ~ queryOp.rep(1) ~ ")")
   private val orOp = P("(" ~ "or" ~ boostOpt.? ~ queryOp.rep(1) ~ ")")
   private val notOp = P("(" ~ "not" ~ boostOpt.? ~ queryOp ~ ")")
@@ -71,18 +71,18 @@ class CloudSearchQueryParser {
 
 }
 
-object CloudSearchQueryValidator {
+object RedditPlainQueryValidator {
 
   import fastparse.core.ParseError
   import fastparse.core.Parsed._
 
   val log = LoggerFactory.getLogger(getClass)
 
-  def apply(rule: String) = new CloudSearchQueryParser().parse(rule) match {
+  def apply(rule: String) = new RedditPlainQueryParser().parse(rule) match {
     case Success(matched, index) =>
       log.debug(s"Matched: $matched")
       scala.util.Success(matched)
-    case f@Failure(lastParser, index, extra) =>
+    case f @ Failure(lastParser, index, extra) =>
       val parseError = ParseError(f)
       log.warn(s"Failed to parse rule, expected '$lastParser'. Trace: ${parseError.getMessage}")
       scala.util.Failure(parseError)

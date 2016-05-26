@@ -1,5 +1,5 @@
-# CloudSearch structured query Validator
+# Reddit plain query Validator
 
-Parse and validate [CloudSearch structured query syntax](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/search-api.html#structured-search-syntax).
+Parse and validate [Reddit plain query syntax](https://www.reddit.com/wiki/search).
 
 {% include "./README.md" %}
