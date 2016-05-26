@@ -32,9 +32,9 @@ class RedditPlainQueryParser {
   private val notOp = P("NOT" | "-").log()
   private val parens = P("(" ~ query ~ ")").log()
 
-  private def query: Parser[Any] = P((notOp ?) ~ (fieldOp | parens) ~ (andOp | orOp).? ).log()
+  private def query: Parser[Any] = P(notOp.? ~ (fieldOp | parens) ~ (andOp | orOp).? ).log()
 
-  def parse(rule: String) = P(Start ~ query ~ End).log().parse(rule)
+  def parse(rule: String) = P(Start ~ query.rep(1) ~ End).log().parse(rule)
 
 }
 
