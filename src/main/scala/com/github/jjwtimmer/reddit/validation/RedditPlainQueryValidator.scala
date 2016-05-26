@@ -24,17 +24,17 @@ class RedditPlainQueryParser {
     def ** = p.repX
   }
 
-  private val term = P(CharsWhile((('a' to 'z') ++ ('A' to 'Z') ++ ('0' to '9') ++ Seq('_')).contains(_))!).filter(term => !Seq("AND", "OR", "NOT").contains(term)).log()
-  private val field = P(StringIn("title", "author", "selftext", "subreddit", "url", "site", "nsfw", "self", "flair") ~~ ":" ~~ term).log()
-  private val fieldOp = P(field | term).log()
-  private val andOp = P("AND" ~ query).log()
-  private val orOp = P("OR" ~ query).log()
-  private val notOp = P("NOT" | "-").log()
-  private val parens = P("(" ~ query ~ ")").log()
+  private val term = P(CharsWhile((('a' to 'z') ++ ('A' to 'Z') ++ ('0' to '9') ++ Seq('_')).contains(_))!).filter(term => !Seq("AND", "OR", "NOT").contains(term))
+  private val field = P(StringIn("title", "author", "selftext", "subreddit", "url", "site", "nsfw", "self", "flair") ~~ ":" ~~ term)
+  private val fieldOp = P(field | term)
+  private val andOp = P("AND" ~ query)
+  private val orOp = P("OR" ~ query)
+  private val notOp = P("NOT" | "-")
+  private val parens = P("(" ~ query ~ ")")
 
-  private def query: Parser[Any] = P(notOp.? ~ (fieldOp | parens) ~ (andOp | orOp).? ).log()
+  private def query: Parser[Any] = P(notOp.? ~ (fieldOp | parens) ~ (andOp | orOp).? )
 
-  def parse(rule: String) = P(Start ~ query.rep(1) ~ End).log().parse(rule)
+  def parse(rule: String) = P(Start ~ query.rep(1) ~ End).parse(rule)
 
 }
 
